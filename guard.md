@@ -1,8 +1,8 @@
-## 路由守卫 guard
+# 路由守卫 guard
 
 ## 在 angular 应用中，要实现对页面的访问控制，就需要用到 `guard`。
 
-> 路由守卫是一个很贴切的解释。如果把每个路由（route）当作一条到达页面的通道，那 `gurad` 就是站在通道前的守卫。只有守卫放行了，你才能穿过通道，到达目的地。
+> 路由守卫是一个很贴切的解释。如果把每个路由（route）当作一条到达页面的通道，那`gurad`就是站在通道前的守卫。只有守卫放行了，你才能穿过通道，到达目的地。
 
 ### 路由守卫的分类
 
@@ -14,7 +14,7 @@
 
 而要想实现一个路由守卫，并不复杂。
 - 首先你要建立一个路由守卫。
-- 然后你要将这个路由守卫添加到privoders数组中。应用中任何需要使用的服务，都需要添加到相应模块的providers数组中。注意，不要将同一个service放入不同的模块中，当然，这是另一个话题。
+- 然后你要将这个路由守卫添加到privoders数组中。应用中任何需要使用的服务，都需要添加到相应模块的providers数组中。注意，不要将同一个service放入不同的模块中，当然，这是另一个话题。
 - 最后，你要将这个路由守卫放到对应的路由上去。
 
 
@@ -34,7 +34,7 @@ export class AuthGuard implements CanActivate {
   }
 }
 ```
-2. 将路由守卫添加到需要的路由
+2. 将路由守卫添加到需要的路由
 ```js
 import { AuthGuard }                from './auth-guard.service';
 
@@ -65,18 +65,18 @@ const adminRoutes: Routes = [
   ],
   exports: [
     RouterModule
-  ],
+  ],
   
   providers:[AuthGuard] // ---> service 必须添加到providers数组中，才能被注入使用
 })
 export class AdminRoutingModule {}
 ```
 
-就这么简单。路由守卫的CanActivate 方法返回true，就表示放行。返回false，你就别想过去了。如果有多个路由守卫，得所有人都点头（都返回true），你才能进去！
+就这么简单。路由守卫的CanActivate 方法返回true，就表示放行。返回false，你就别想过去了。如果有多个路由守卫，得所有人都点头（都返回true），你才能进去！
 
 > `CanActivateChild` 子路由守卫。如果你进入的路由还拥有子路由（children），那么当你进入其任何一个子路由的时候，还需要问子路由守卫同不同意。
 
-实现方法和上面如出一辙，只是换了一个接口。
+实现方法和上面如出一辙，只是换了一个接口。
 1. 创建路由守卫
 ```js
 import { Injectable }     from '@angular/core';
@@ -120,7 +120,7 @@ const adminRoutes: Routes = [
   ],
   exports: [
     RouterModule
-  ],
+  ],
   
   providers:[AuthGuard] // ---> service 必须添加到providers数组中，才能被注入使用
 })
