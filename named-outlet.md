@@ -38,7 +38,7 @@
 > 我想让联系客服这个组件出现在 popup 这个outlet中。创建组件：
 
 ```js
-@NgModule({
+@Component({
     selector:'app-concat',
     template:`<div>联系客服</div>`,
     styles:[

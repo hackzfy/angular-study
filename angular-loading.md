@@ -32,11 +32,11 @@ NgModule({
 export class PageLoadingComponent {}
 ```
 
-可以看出，这就是一个简单的，把窗口全部遮住的遮罩层，中间有一行文字，告诉用户页面正在加载。此时，用户无法点击页面了（用户也许会很郁闷，因为他还想不停的点下去，如何提升用户体验是另一个话题）。你可以把提示文字换成任何想展现的东西，比如一个图片，logo，动画等等。
+>可以看出，这就是一个简单的，把窗口全部遮住的遮罩层，中间有一行文字，告诉用户页面正在加载。此时，用户无法点击页面了（用户也许会很郁闷，因为他还想不停的点下去，如何提升用户体验是另一个话题）。你可以把提示文字换成任何想展现的东西，比如一个图片，logo，动画等等。
 
 
 
-> 其次，这个东西放在哪里呢？如果要在整个页面中可用，则必须放在跟组件中。
+> 其次，这个东西放在哪里呢？如果要在整个应用中可用，则必须放在根组件中。
 
 
 
@@ -46,7 +46,7 @@ export class PageLoadingComponent {}
 <app-page-loading></app-page-loading>
 ```
 
-打开页面后，你会发现它遮住了整个窗口，无法进行任何操作。我们是希望它在路由跳转的那短暂的页面空白期出现，而不是一直存在。
+>打开页面后，你会发现它遮住了整个窗口，无法进行任何操作。我们是希望它在路由跳转的那短暂的页面空白期出现，而不是一直存在。
 
 ```html
 <app-page-loading *ngIf="isLoading$|async"></app-page-loading>
@@ -61,12 +61,12 @@ export class AppComponent {
 
 	constructor(private pageLoadingService: PageLoadingService){}
     ngOnInit(){
-        this.isLoading$ = this.pageLoadingService;
+        this.isLoading$ = this.pageLoadingService.loading$;
     }
 }
 ```
 
-是的，我们需要一个service，由它来传递页面是否正在跳转的状态。注意，这个状态是一个包含着布尔值的Observable,所以我们在模板中需要使用 async pipe来订阅并且获取它的值。下面来实现这个service：
+>是的，我们需要一个service，由它来传递页面是否正在跳转的状态。注意，这个状态是一个包含着布尔值的Observable,所以我们在模板中需要使用 async pipe来订阅并且获取它的值。下面来实现这个service：
 
 ```js
 import {Injectable} from '@angular/core';
@@ -114,11 +114,11 @@ export class LoadingService {
 
 ```
 
-为了防止写错，我把整个文件copy过来了，这可能有点多，但是仍然很清晰。
+>为了防止写错，我把整个文件copy过来了，这可能有点多，但是仍然很清晰。
 
-听着，要使他正常工作，别忘了把他加入到根模块的providers数组中。
+>听着，要使他正常工作，别忘了把他加入到根模块的providers数组中。
 
-不要试图在url中切换地址栏来查看效果，那是页面重新加载，而不是懒加载。一定要通过routerLink来切换页面，才能看到效果。
+>不要试图在url中切换地址栏来查看效果，那是页面重新加载，而不是懒加载。一定要通过routerLink来切换页面，才能看到效果。
 
 ```html
 // app.component.html
@@ -143,5 +143,5 @@ const routes:Routes = [
 
 
 
-可能，因为你的代码都在本地，所以遮罩层的存在时间很短，会一闪而过。你可以试着打开开发者工具，在 Network 面板找到 Online，点击右边的向下的小箭头，选择 slow 3G 网络模式，查看效果。
+>可能，因为你的代码都在本地，所以遮罩层的存在时间很短，会一闪而过。你可以试着打开开发者工具，在 Network 面板找到 Online，点击右边的向下的小箭头，选择 slow 3G 网络模式，查看效果。
 

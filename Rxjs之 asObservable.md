@@ -16,7 +16,7 @@ interval.asObservable().subscribe(x=>console.log(1));
 // 2
 // ...
 // 然而实际上是：
-// Uncaught TypeError: timer1.asObservable is not a function
+// Uncaught TypeError: interval.asObservable is not a function
 ```
 
 > 普通的Observable是没有这个方法的。本来就是一个Observable，再包含一个把自己当作Observable的方法？没有人会这样设计代码。其实这个方法只存在于一种特殊的Observable上面，它就是Subject。
@@ -93,7 +93,6 @@ this.websocketService.get().subscribe(data=>{ /* do something with data */});
 this.websocketService.subject.next('haha!');
 // error! subject is private !
 this.websocketService.get().next('haha!');
-// error! 
-Uncaught TypeError: ...next is not a function
+// Uncaught TypeError: ...next is not a function
 ```
 
