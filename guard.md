@@ -13,14 +13,14 @@
 - `CanLoad` 是否可以进入懒加载的路由（lazyload module）
 
 而要想实现一个路由守卫，并不复杂。
+
 - 首先你要建立一个路由守卫。
 - 然后你要将这个路由守卫添加到privoders数组中。应用中任何需要使用的服务，都需要添加到相应模块的providers数组中。注意，不要将同一个service放入不同的模块中，当然，这是另一个话题。
 - 最后，你要将这个路由守卫放到对应的路由上去。
 
+#### `CanActivate` 是否可以进入当前路由
 
-####`CanActivate` 是否可以进入当前路由
-
-1. 建立路由守卫
+> 建立路由守卫
 
 ```js
 import { Injectable }     from '@angular/core';
@@ -34,7 +34,9 @@ export class AuthGuard implements CanActivate {
   }
 }
 ```
-2. 将路由守卫添加到需要的路由
+
+> 将路由守卫添加到需要的路由
+
 ```js
 import { AuthGuard }                from './auth-guard.service';
 
@@ -56,7 +58,8 @@ const adminRoutes: Routes = [
   }
 ];
 ```
-3. 将守卫添加到对应模块的 `providers` 中
+
+> 将守卫添加到对应模块的 `providers` 中
 
 ```js
 @NgModule({
@@ -76,12 +79,14 @@ export class AdminRoutingModule {}
 
 
 
-####`CanActivateChild` 子路由守卫。
+#### `CanActivateChild` 子路由守卫。
 
 > 如果你进入的路由还拥有子路由（children），那么当你进入其任何一个子路由的时候，还需要问子路由守卫同不同意。
 
 实现方法和上面如出一辙，只是换了一个接口。
-1. 创建路由守卫
+
+> 创建路由守卫
+
 ```js
 import { Injectable }     from '@angular/core';
 import { CanActivateChild }    from '@angular/router'; //---> 接口改变
@@ -94,7 +99,9 @@ export class AuthGuard implements CanActivateChild { //---> 接口改变
   }
 }
 ```
-2. 添加到路由
+
+> 添加到路由
+
 ```js
 import { AuthGuard }                from './auth-guard.service';
 
@@ -116,7 +123,9 @@ const adminRoutes: Routes = [
   }
 ];
 ```
-3. 守卫添加到对应模块的`providers`中
+
+> 守卫添加到对应模块的`providers`中
+
 ```js
 @NgModule({
   imports: [
@@ -129,6 +138,7 @@ const adminRoutes: Routes = [
   providers:[AuthGuard] // ---> service 必须添加到providers数组中，才能被注入使用
 })
 ```
+
 **注意：一个路由守卫可以实现多个接口，这样就可以被放置在路由守卫的不同位置。**
 
 ```js
@@ -147,7 +157,8 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   }
 
 ```
-- 放置在路由的不同位置，作为不同性质的守卫实用。
+
+> 放置在路由的不同位置，作为不同性质的守卫实用。
 
 ```js
 import { AuthGuard }                from './auth-guard.service';
@@ -171,13 +182,14 @@ const adminRoutes: Routes = [
   }
 ];
 ```
+
 这样，一个守卫只要实现了对应的接口，就可以拥有对应接口的守卫能力。
 
 #### CanDeactive
 
 > 使用场景: 当用户要离开当前页面时,提醒用户是否要保存在当前页面所做的修改.
 
-- 建立 guard
+> 建立 guard
 
 ```js
 // can-deactivate-guard.service.ts
@@ -216,7 +228,7 @@ export class CanDeactivateGuard implements CanDeactivate<CanComponentDeactivate>
 
 
 
-* 将guard添加到对应路由.
+> 将guard添加到对应路由.
 
 ```js
 const routes:Routes = [
@@ -230,7 +242,7 @@ const routes:Routes = [
 
 
 
-* 将guard添加到对应的路由模块的proviaders
+> 将guard添加到对应的路由模块的proviaders
 
 ```js
 @NgModule({
@@ -250,12 +262,55 @@ const routes:Routes = [
 
 
 
+#### `CanLoad`
+
+> 如果一个模块时懒加载的,要使用`CanLoad`守卫来控制模块是否可以被加载.这在一些需要权限才可以访问的页面非常有用.如果守卫不同意,受保护模块的代码就不会被加载到本地.
 
 
-### `resolver`
+
+> 创建守卫,把守卫添加到对应路由,以及路由模块中的providers中.上面已经重复和很多遍.
+
+```js
+// xxx-routing.module.ts
+const routes:Routes = [
+  //...
+  {
+      path: 'admin',
+      loadChildren: 'app/admin/admin.module#AdminModule',
+      canLoad: [AuthGuard]
+  },
+  // ...
+];
+
+@NgModule({
+  // ...
+  providers:[AuthGuard]
+  // ...
+})
+
+// auth-guard.ts
+
+export class AuthGuard implements CanLoad {
+
+  // ...
+  canLoad(route: Route): boolean {
+    let url = `/${route.path}`;
+
+    return this.checkLogin(url);
+  }
+  
+  // ...
+}
+
+```
+
+
+
+####`resolver`
+
 > 如果需要在路由跳转到目标页面之前，提前获取页面需要的数据，以便在页面展示时能第一时间显示出对应的数据，就需要使用 resolve。
 
-1. 建立 resolver
+> 建立 resolver
 
 ```
 @Injectable()
@@ -278,7 +333,9 @@ export class CrisisDetailResolver implements Resolve<Crisis> {
   }
 }
 ```
-2. 将`resolver`添加到对应的路由：
+
+> 将`resolver`添加到对应的路由：
+
 ```
 const routes:Routes = [
          {
@@ -296,7 +353,8 @@ const routes:Routes = [
 ];
 
 ```
-3. 将`resolver`加入路由模块的`providers`数组中
+
+> 将`resolver`加入路由模块的`providers`数组中
 
 ```
 @NgModule({
@@ -304,7 +362,8 @@ const routes:Routes = [
   providers:[CrisisDetailResolver]
 })
 ```
-4.在 component 中使用
+
+> 在 component 中使用
 
 ```js
 ...
@@ -324,10 +383,12 @@ ngOnInit() {
 
 
 
+
+
 文中的代码引用自Angular官方网站 https://angular.io/guide/router
 
 
 
 
 
-### 
+###  
