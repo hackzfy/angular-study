@@ -1,3 +1,4 @@
+TODO: 需要修改
 #  RxJS 之 Observable
 
 > 相信每一个刚接触RxJS的人，都会有些困惑。从今天开始，我们来一点点揭开她的神秘面纱。
@@ -15,7 +16,7 @@ function Observable(observer){
     
     return () => 1;
 }
-// 这就是一个Observable！
+// 这就是一个Observable
 ```
 
 
@@ -30,7 +31,7 @@ const observer = {
     error: error => console.error('error',error),
     complet: () => console.log('complete')
 }
-// Yes! 这是一个Observer
+// 这是一个Observer
 ```
 
 
@@ -51,7 +52,7 @@ function Observable(observer){
 
 
 
-> 可以看到，observable内部有一个生产数据的源 >>> body上的事件监听函数。 每当 body 上触发了事件，相应的事件监听函数就会调用observer的方法，并传入event对象（生产出来的数据）作为参数。至于如何处理数据，是由observer 的next，error，以及complete方法指定的。这个observerble如何使用？
+> 可以看到，observable内部给 body绑定了事件监听函数。 每当 body 上触发了事件，相应的事件监听函数就会调用observer的方法，并传入event对象（生产出来的数据）作为参数。至于如何处理数据，是由observer 的next，error，以及complete方法指定的。这个observerble如何使用？
 
 ```js
 Observable(observer);
@@ -64,7 +65,7 @@ Observable(observer);
 
 
 
-> 首先，Observable 内部有一个生产数据的源：producer。这样Observable才会拥有数据，拥有数据才能发射数据。
+> 首先，Observable 可以发射数据。
 
 
 
