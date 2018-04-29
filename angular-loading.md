@@ -9,7 +9,7 @@
 ```js
 // page-loading.component.ts
 
-NgModule({
+Component({
     selector:'app-page-loading',
     template: `
     	<p>
