@@ -6,20 +6,32 @@
 npm install -g pm2
 ```
 
-> 有些同学在全局安装后，发现命令行敲 pm2 ，命令不存在。那是因为没有把npm全局包的bin目录加入到PATH 中。
+> 注意，有的同学在安装全局包的时候，会遇到权限问题。这时候不要使用sudo来安装，会引发很多问题。一种办法是改变全局包所在目录的权限。一种是将npm全局安装目录设置为当前用户目录的 node_modules 。我选择的是后者。如果没有遇到问题，请忽略下面步骤。
+
+```shell
+npm config set prefix ~/node_modules
+```
+
+> 查看是否设置成功
+
+```shell
+npm config get prefix 
+
+// /home/your_user_name/node_modules
+```
+
+> 在全局安装后，如果发现命令行敲 pm2 ，提示命令不存在，那说明没有把npm全局包的bin目录加入到PATH 中。如果已经正常输出 pm2 介绍，请忽略下面步骤。
 
 ```shell
 vi ~/.bash_profile
 ```
 
->在最后加入下面这行
+> 在最后加入下面这行。
 
 ```shell
-PATH=$PATH:$(npm config get prefix)/bin
+PATH=$PATH:~/node_modules/bin  
 ```
 
-> npm config get prefix 是获取你全局包安装的目录，它下面的bin目录存放的就是可执行文件。
->
 > 最后，还要刷新文件。
 
 ```shell
@@ -52,12 +64,6 @@ kill 9750
 
 ```shell
 pm2 start path/to/yourserver/app.js --name app1
-```
-
-> 使用pm2 查看你的应用列表
-
-```shell
-pm2 list 
 ```
 
 > 停止你的应用，参数为应用名称，也就是 —name 传入的参数
