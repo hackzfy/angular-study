@@ -17,8 +17,7 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
     <div>
       <label>parent:</label><input type="text" [(ngModel)]="value" >
       <app-on-change-child [value]="value"></app-on-change-child>
-    </div>`,
-  styleUrls: ['./on-change.component.css']
+    </div>`
 })
 export class OnChangeComponent implements OnInit {
   // 父组件的 value 属性不是外部传入的，不是 [input] 属性
@@ -67,9 +66,9 @@ export class OnChangeChildComponent implements OnChanges {
 >
 > Respond when Angular (re)sets data-bound **input properties**. The method receives a `SimpleChanges` object of current and previous property values.
 >
-> Called before `ngOnInit()` and whenever one or more data-bound input properties change.
+> Called before `ngOnInit()` and whenever one or more data-bound **input properties** change.
 >
-> 也就是说，只有当设置数据绑定的输入属性时，以及输入属性绑定的数据发生改变时，才会调用此函数。
+> 也就是说，只有当设置数据绑定的**输入属性**时，以及**输入属性**绑定的数据发生改变时，才会调用此函数。
 >
 > 这就解释了为什么当在父组件的输入框中输入数据时，并不会调用父组件的 ngOnChanges 方法，因为父组件中的 value 属性并不是一个 **input property**。而子组件因为将父组件的 value 作为输入数据，绑定在自身上， 这个 value 是个 **input property** ，所以会做出响应，调用自己的 ngOnChanges 方法。
 >

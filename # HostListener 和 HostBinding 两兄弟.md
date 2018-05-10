@@ -16,7 +16,7 @@
 // spy.directive.ts
 import {Directive, ElementRef, HostBinding, HostListener} from '@angular/core';
 
-// 这个很明显，是一个指令，而且取了个和合适的名字。
+// 这个很明显，是一个指令，而且取了个很合适的名字。
 // 指令就像一个间谍，它埋伏在宿主元素身上，监视着其一举一动
 @Directive({
   selector: '[appSpy]'
