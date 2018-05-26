@@ -1,12 +1,9 @@
 # 【进阶】在Angular应用中使用socket.io
 
 > 我们已经知道如何在angular 中使用 websocket 和服务器进行交互。但是程序的健壮性不够，也有很多同学起node服务器的时候会遇到错误，难以解决。客户端代码中的websocket 代码也不够健壮，操作起来也不方便。本文介绍一种更好的方案： socket.io
-
-
-
 > 首先，新建服务端文件夹 server。进入文件夹。
 
-```
+```shell
 npm init -y
 npm install --save socket.io
 ```
