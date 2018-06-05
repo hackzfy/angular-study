@@ -85,7 +85,7 @@ git checkout stable // 假设子模块有这样一个分支
 // do something ...
 ```
 
-> 如果你想在推送pc-project的时候，将子模块的改变也一起推送（而不是进入每个子模块单独进行推送），只需要加入参数。
+> 如果你想在推送pc-project的时候，将子模块的改变也一起推送（而不是进入每个子模块单独进行推送），只需要加入参数。注意，子模块需要先将改动commit 。
 
 ```
 git push --recurse-submodules=on-demand
