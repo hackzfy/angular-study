@@ -1,4 +1,4 @@
-# ng-zorro 项目搭建
+# ng-zorro-antd 项目搭建
 
 1. 全局安装 angular-cli。项目使用版本号为 6
 
