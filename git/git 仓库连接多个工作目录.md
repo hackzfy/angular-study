@@ -13,3 +13,13 @@ git worktree add -b <新分支名> <新路径> <从此分支创建>
 那和 clone 有什么不同？
 
 不同处在于，两个文件夹其实共享了 .git 目录。所以它们的分支状态，文件改动是实时同步的。不需要你 pull。
+
+## 删除 worktree
+
+删除之前记得将修改合并到对应分支上
+
+```shell
+git worktree list
+
+git worktree remove [path]
+```
